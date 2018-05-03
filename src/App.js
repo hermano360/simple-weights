@@ -38,6 +38,12 @@ class App extends Component {
     }
     else return null
   }
+
+  reduceWeights = (weights) => {
+    return weights.reduce((accumulator, currentValue) => {
+      return `${accumulator} + ${currentValue}`
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -65,7 +71,7 @@ class App extends Component {
             <p>Goal weight must be at least as much as the bar</p>
           )}
           {this.state.goal !=="" && Number(this.state.goal) > (this.state.gender ? 45 : 33) && (
-            <p>{JSON.stringify(this.findSimplestWeights(Number(this.state.goal), this.state.gender ? 45 : 33, this.state.olyClass).weights) }</p>
+            <p>Weights: {this.reduceWeights(this.findSimplestWeights(Number(this.state.goal), this.state.gender ? 45 : 33, this.state.olyClass).weights) }</p>
           )}
           {this.state.goal !=="" && Number(this.state.goal) === (this.state.gender ? 45 : 33) && (
             <p>Empty Bar</p>
