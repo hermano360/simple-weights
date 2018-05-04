@@ -4,6 +4,7 @@ import './App.css';
 class App extends Component {
   state = {
     goal: '',
+    percent: '',
     gender: true,
     olyClass: false
   }
@@ -51,8 +52,12 @@ class App extends Component {
           <h1 className="App-title">Simple Weights</h1>
         </header>
         <p className="App-intro">
-          Goal
+          100%
           <input type="number" value={this.state.goal} onChange={(e)=> this.setState({goal: e.target.value})}/>
+        </p>
+        <p className="App-intro">
+          Percentage
+          <input type="number" value={this.state.percent} onChange={(e)=> this.setState({percent: e.target.value})}/>
         </p>
         <p className="App-intro">
           {this.state.gender ? 'Male Bar - 45lb' : 'Female Bar - 33lb'}
@@ -67,13 +72,13 @@ class App extends Component {
           }/>
         </p>
         <p className="App-intro">
-          {this.state.goal !== "" && Number(this.state.goal) < (this.state.gender ? 45 : 33)  && (
-            <p>Goal weight must be at least as much as the bar</p>
+          {this.state.goal !== ""&& this.state.percent !=="" && Number(this.state.goal)*Number(this.state.percent)/100 < (this.state.gender ? 45 : 33)  && (
+            <p>...</p>
           )}
-          {this.state.goal !=="" && Number(this.state.goal) > (this.state.gender ? 45 : 33) && (
-            <p>Weights: {this.reduceWeights(this.findSimplestWeights(Number(this.state.goal), this.state.gender ? 45 : 33, this.state.olyClass).weights) }</p>
+          {this.state.goal !=="" && this.state.percent !=="" && Number(this.state.goal)*Number(this.state.percent)/100 > (this.state.gender ? 45 : 33) && (
+            <p>Weights: {this.reduceWeights(this.findSimplestWeights(Number(this.state.goal)*Number(this.state.percent)/100, this.state.gender ? 45 : 33, this.state.olyClass).weights) }</p>
           )}
-          {this.state.goal !=="" && Number(this.state.goal) === (this.state.gender ? 45 : 33) && (
+          {this.state.goal !=="" && this.state.percent !=="" && Number(this.state.goal)*Number(this.state.percent)/100 === (this.state.gender ? 45 : 33) && (
             <p>Empty Bar</p>
           )}
         </p>
